@@ -1,12 +1,18 @@
 package model;
 
-public class BoardGames extends Toys{
+public class BoardGames extends Toy{
 
 	
 	private int maxPlayers;
 	private int minPlayers;
 	private String designer;
 	
+	public BoardGames(String serialNumber, String name, String brand, double price, int availableCount, int ageappropriate, int maxPlayers, int minPlayers, String designer){
+		super( serialNumber, name,  brand, price, availableCount, ageappropriate);
+		this.maxPlayers=maxPlayers;
+		this.minPlayers=minPlayers;
+		this.designer=designer;
+	}
 	public int getMinPlayers() {
 		return minPlayers;
 	}

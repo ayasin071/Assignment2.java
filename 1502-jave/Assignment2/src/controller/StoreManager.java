@@ -10,14 +10,14 @@ import model.Animals;
 import model.BoardGames;
 import model.Figures;
 import model.Puzzles;
-import model.Toys;
+import model.Toy;
 import view.AppMenu;
 
 /**
  * This class manages the toy store and implements the functionality of searching, purchasing, adding and removing toys.
  */
 public class StoreManager {
-	public ArrayList <Toys> listOfToys; // list of all toys in the store
+	public ArrayList <Toy> listOfToys; // list of all toys in the store
 	AppMenu appMen; // menu interface
 	private final String FILE_PATH = "/Users/osmanmufti/Desktop/1502-jave/Assignment2/res/toys.txt"; // file path for storing toy data
 	
@@ -45,51 +45,44 @@ public class StoreManager {
 				String SerialNumber = splittedLine[0];
 				char firstchar = SerialNumber.charAt(0);
 				if (firstchar == '0' || firstchar == '1') { // if toy is a figure
-					Figures t = new Figures(); // create a new Figure object
-					t.setSerialNumber(splittedLine[0]);
-					t.setName(splittedLine[1]);
-					t.setBrand(splittedLine[2]);
-					t.setPrice(Double.parseDouble(splittedLine[3]));
-					t.setAvailableCount(Integer.parseInt(splittedLine[4]));
-					t.setAgeappropriate(Integer.parseInt(splittedLine[5]));
-					t.setClassification(splittedLine[6]);
+					Figures t = new Figures(splittedLine[0],
+					splittedLine[1],
+					splittedLine[2],
+					Double.parseDouble(splittedLine[3]),
+					Integer.parseInt(splittedLine[4]),
+					Integer.parseInt(splittedLine[5]),
+					splittedLine[6]); // create a new Figure object
 					listOfToys.add(t); // add the toy to the list
 				}
 				if (firstchar == '2' || firstchar == '3') { // if toy is an animal
-					Animals t = new Animals(); // create a new Animal object
-					t.setSerialNumber(splittedLine[0]);
-					t.setName(splittedLine[1]);
-					t.setBrand(splittedLine[2]);
-					t.setPrice(Double.parseDouble(splittedLine[3]));
-					t.setAvailableCount(Integer.parseInt(splittedLine[4]));
-					t.setAgeappropriate(Integer.parseInt(splittedLine[5]));
-					t.setMaterial(splittedLine[6]);
-					t.setSize(splittedLine[7]);
+					Animals t = new Animals(splittedLine[0],
+					splittedLine[1],
+					splittedLine[2],
+					Double.parseDouble(splittedLine[3]),
+					Integer.parseInt(splittedLine[4]),
+					Integer.parseInt(splittedLine[5]),
+					splittedLine[6],splittedLine[7]); // create a new Animal object
 					listOfToys.add(t); 
 				}
 				if (firstchar == '4' || firstchar == '5' || firstchar == '6') {
-					Puzzles t = new Puzzles();
-					t.setSerialNumber(splittedLine[0]);
-					t.setName(splittedLine[1]);
-					t.setBrand(splittedLine[2]);
-					t.setPrice(Double.parseDouble(splittedLine[3]));
-					t.setAvailableCount(Integer.parseInt(splittedLine[4]));
-					t.setAgeappropriate(Integer.parseInt(splittedLine[5]));
-					t.setPuzzletype(splittedLine[6]);
+					Puzzles t = new Puzzles(splittedLine[0],
+					splittedLine[1],
+					splittedLine[2],
+					Double.parseDouble(splittedLine[3]),
+					Integer.parseInt(splittedLine[4]),
+					Integer.parseInt(splittedLine[5]),splittedLine[6]);
 					listOfToys.add(t);
 				}
 				if (firstchar == '7' || firstchar == '8' || firstchar == '9') {
-					BoardGames t = new BoardGames();
-					t.setSerialNumber(splittedLine[0]);
-					t.setName(splittedLine[1]);
-					t.setBrand(splittedLine[2]);
-					t.setPrice(Double.parseDouble(splittedLine[3]));
-					t.setAvailableCount(Integer.parseInt(splittedLine[4]));
-					t.setAgeappropriate(Integer.parseInt(splittedLine[5]));
 					String[] maxmin = splittedLine[6].split("-");
-					t.setMaxPlayers(Integer.parseInt(maxmin[1]));
-					t.setMinPlayers(Integer.parseInt(maxmin[0]));
-					t.setDesigner(splittedLine[7]);
+					BoardGames t = new BoardGames(splittedLine[0],
+					splittedLine[1],
+					splittedLine[2],
+					Double.parseDouble(splittedLine[3]),
+					Integer.parseInt(splittedLine[4]),
+					Integer.parseInt(splittedLine[5]),
+					Integer.parseInt(maxmin[1]),
+					Integer.parseInt(maxmin[0]),splittedLine[7]);
 					listOfToys.add(t);
 				}
 			
@@ -112,7 +105,7 @@ public class StoreManager {
 				searchAndPurchase();
 				break;
 			case 2 :
-				Toys t = appMen.addnewtoy();
+				Toy t = appMen.addnewtoy();
 				addNewToy(t);
 				appMen.ToyAddedMessgae();
 				break;
@@ -132,10 +125,10 @@ public class StoreManager {
 	public void searchAndPurchase(){
 		boolean flag = true;
 		int option;
-		ArrayList<Toys> toys;
+		ArrayList<Toy> toys;
 		while (flag){
 			option = appMen.showSubMenu();
-			Toys selectedtoy;
+			Toy selectedtoy;
 			switch(option){
 				case 1 :
 					String SN = appMen.getSerialNumber();
@@ -181,11 +174,11 @@ public class StoreManager {
 			}
 		}
 	}
-	public void purchaseToy(Toys selectedToy){
+	public void purchaseToy(Toy selectedToy){
 		if (selectedToy == null){
 			return ;
 		}
-		for (Toys t:listOfToys) {
+		for (Toy t:listOfToys) {
             if (t.getSerialNumber().equals(selectedToy.getSerialNumber())) {
 				int count = t.getAvailableCount();
 				count = count -1;
@@ -194,9 +187,9 @@ public class StoreManager {
 			}
 		}
 	}
-	public ArrayList <Toys> getToyBySerialNumber(String serialNumber) {
-        ArrayList<Toys> toys = new ArrayList<>();
-		for (Toys t:listOfToys) {
+	public ArrayList <Toy> getToyBySerialNumber(String serialNumber) {
+        ArrayList<Toy> toys = new ArrayList<>();
+		for (Toy t:listOfToys) {
             if (t.getSerialNumber().equals(serialNumber)) {
                 toys.add(t);
 			}
@@ -204,9 +197,9 @@ public class StoreManager {
 		return toys;
 	}
 
-	public ArrayList <Toys> ByType(String type){
-		ArrayList<Toys> toys = new ArrayList<>();
-		for(Toys t: listOfToys){
+	public ArrayList <Toy> ByType(String type){
+		ArrayList<Toy> toys = new ArrayList<>();
+		for(Toy t: listOfToys){
 			if(t.getClass().getName().toLowerCase().contains(type)){
 				toys.add(t);
 			}
@@ -216,9 +209,9 @@ public class StoreManager {
 	
 
 
-	public ArrayList <Toys> searchByName(String name) {
-		ArrayList<Toys> toys = new ArrayList<>();
-		for(Toys t: listOfToys){
+	public ArrayList <Toy> searchByName(String name) {
+		ArrayList<Toy> toys = new ArrayList<>();
+		for(Toy t: listOfToys){
 			if (t.getName().toLowerCase().contains(name.toLowerCase())){
 				toys.add(t);
 			}
@@ -227,12 +220,12 @@ public class StoreManager {
 		return toys;
 	}
 
-	public void addNewToy(Toys newToy){
+	public void addNewToy(Toy newToy){
 		listOfToys.add(newToy);
 	}
 	
 	public void removeAToy(String serialNumber) {
-		for (Toys t:listOfToys) {
+		for (Toy t:listOfToys) {
             if (t.getSerialNumber().equals(serialNumber)) {
                 String option = appMen.toyToRemove(t);
 				if (option.equals("y")){
@@ -249,7 +242,7 @@ public class StoreManager {
 		File info = new File(FILE_PATH );
 		PrintWriter pw;
 		pw = new PrintWriter(info);
-		for (Toys t: listOfToys) {
+		for (Toy t: listOfToys) {
 			pw.println(t.formatToFile());
 		}
 		pw.close();

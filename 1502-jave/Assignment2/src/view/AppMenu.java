@@ -11,7 +11,7 @@ import model.Animals;
 import model.BoardGames;
 import model.Figures;
 import model.Puzzles;
-import model.Toys;
+import model.Toy;
 
 public class AppMenu {
 	
@@ -113,7 +113,7 @@ public class AppMenu {
 	Prints a list of toys to the console for the user to view.
 	@param toys an ArrayList of Toys objects to be printed to the console
 	*/
-	public void printToys(ArrayList<Toys> toys){
+	public void printToys(ArrayList<Toy> toys){
 		String c = this.getClass().getName();
 		c = c.replaceAll("model.", "");
 		for(int n=0; n<toys.size(); n++){
@@ -126,7 +126,7 @@ public class AppMenu {
 	@param toys an ArrayList of Toys objects
 	@return the selected Toys object if it's available for purchase, null otherwise
 	*/
-	public Toys PurchaseListIndex(ArrayList<Toys> toys){
+	public Toy PurchaseListIndex(ArrayList<Toy> toys){
 		System.out.print("Enter option number to purchase:");
 
 		String optionStr = input.next();
@@ -143,7 +143,7 @@ public class AppMenu {
 			System.out.print("This option is invalid:\n");
 			return null;
 		}
-		Toys selectedtoy = toys.get(index);
+		Toy selectedtoy = toys.get(index);
 		if (selectedtoy.getAvailableCount()<1){
 			System.out.print("This toy is out of stock:");
 			return null;
@@ -190,7 +190,7 @@ public class AppMenu {
 	@param t the Toys object to be removed
 	@return a String representing the user's choice to remove the toy or not
 	*/
-	public String toyToRemove(Toys t){
+	public String toyToRemove(Toy t){
 		System.out.print("This Item Found:\n");
 		System.out.print(t.formatToScreen());
 		while (true){
@@ -203,7 +203,7 @@ public class AppMenu {
 	}
 
 
-	public Toys addnewtoy() {
+	public Toy addnewtoy() {
 			input = new Scanner(System.in);
 			// Prompt user for serial number
 			String serialNumber="";
@@ -267,49 +267,26 @@ public class AppMenu {
 			
 			char firstchar = serialNumber.charAt(0);
 			if (firstchar == '0' || firstchar == '1') { 
-				Figures t = new Figures();
 				System.out.println("Enter classification: Action, Doll, or Historic");
 				String classification=input.next();
-				t.setSerialNumber(serialNumber);
-				t.setName(toyName);
-				t.setBrand(toyBrand);
-				t.setPrice(toyPrice);
-				t.setAvailableCount(availableCount);
-				t.setAgeappropriate(appropriateAge);
-				t.setClassification(classification);
+				Figures t = new Figures(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,classification);
 				return t;
 			}
 			if (firstchar == '2' || firstchar == '3') { 
-				Animals t = new Animals();
 				System.out.println("Enter material type:");
 				String material=input.next();
 				System.out.println("Enter size: Small, Medium, or Large");
 				String size=input.next();
-				t.setSerialNumber(serialNumber);
-				t.setName(toyName);
-				t.setBrand(toyBrand);
-				t.setPrice(toyPrice);
-				t.setAvailableCount(availableCount);
-				t.setAgeappropriate(appropriateAge);
-				t.setMaterial(material);
-				t.setSize(size);
+				Animals t = new Animals(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,material,size);
 				return t;
 			}
 			if (firstchar == '4' || firstchar == '5' || firstchar == '6') {
-				Puzzles t = new Puzzles();
 				System.out.println("Enter puzzle-type: Mechanical, Cryptic, Logic, Trivia, or Riddle");
 				String puzzletype=input.next();
-				t.setSerialNumber(serialNumber);
-				t.setName(toyName);
-				t.setBrand(toyBrand);
-				t.setPrice(toyPrice);
-				t.setAvailableCount(availableCount);
-				t.setAgeappropriate(appropriateAge);
-				t.setPuzzletype(puzzletype);
+				Puzzles t = new Puzzles(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge,puzzletype);
 				return t;
 			}
 			if (firstchar == '7' || firstchar == '8' || firstchar == '9') {
-				BoardGames t = new BoardGames();
 					// Prompt user for minimum number of players
 				int minPlayers = 0;
 				int maxPlayers = 0;
@@ -337,15 +314,7 @@ public class AppMenu {
 
 					String designerNames=input.next();
 					// Print confirmation message
-					t.setSerialNumber(serialNumber);
-					t.setName(toyName);
-					t.setBrand(toyBrand);
-					t.setPrice(toyPrice);
-					t.setAvailableCount(availableCount);
-					t.setAgeappropriate(appropriateAge);
-					t.setMinPlayers(minPlayers);
-					t.setMaxPlayers(maxPlayers);
-					t.setDesigner(designerNames);
+					BoardGames t = new BoardGames(serialNumber,toyName,toyBrand,toyPrice,availableCount,appropriateAge, maxPlayers,minPlayers,designerNames);
 					return t;
 			}
 		

@@ -129,7 +129,7 @@
 5637161167;Kakuro;Gamearo;0.33;14;5;M
 6957748827;Rubik's Revenge;Game Loop;73.88;13;9;C
 9108635194;Spy Alley;Game Orc;29.47;1;4;2-4;Rhiann Worthington,Milla Baxter
-8076566788;Star Wars Epic Duels;Game Reboot;285.25;14;9;2-3;Troy Mcbride
+8076566788;Star Wars Epic Duels;Game Reboot;285.25;13;9;2-3;Troy Mcbride
 2342281667;Lion;Game Throne;14.07;14;10;Wooden;M
 8573975959;War on Terror;Game Survival;104.63;7;9;2-7;Maryam Mcdonnell,Osian Hendricks
 0496522522;Anatomically correct doll;Game Rush;171.46;13;8;H
